@@ -9,6 +9,5 @@ namespace CP3.Domain.Interfaces
         BarcoEntity? Adicionar(BarcoEntity cliente);
         BarcoEntity? Editar(BarcoEntity cliente);
         BarcoEntity? Remover(int id);
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using CP3.Domain.Entities;
+﻿using CP3.Application.Dtos;
+using CP3.Domain.Entities;
 using CP3.Domain.Interfaces;
 using CP3.Domain.Interfaces.Dtos;
 
