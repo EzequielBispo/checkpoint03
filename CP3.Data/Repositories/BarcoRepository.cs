@@ -12,5 +12,32 @@ namespace CP3.Data.Repositories
         {
             _context = context;
         }
+
+        public BarcoEntity? Adicionar(BarcoEntity cliente)
+        {
+            _context.Barco.Add(cliente);
+            _context.SaveChanges();
+            return cliente;
+        }
+
+        public BarcoEntity? Editar(BarcoEntity cliente)
+        {
+            
+        }
+
+        public BarcoEntity? ObterPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BarcoEntity>? ObterTodos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BarcoEntity? Remover(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
