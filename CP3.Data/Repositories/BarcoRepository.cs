@@ -22,7 +22,9 @@ namespace CP3.Data.Repositories
 
         public BarcoEntity? Editar(BarcoEntity cliente)
         {
-            
+            _context.Barco.Update(cliente);
+            _context.SaveChanges();
+            return cliente;
         }
 
         public BarcoEntity? ObterPorId(int id)
