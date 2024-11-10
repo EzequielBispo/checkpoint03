@@ -1,7 +1,10 @@
 ﻿using CP3.Application.Services;
+using CP3.Data.AppData;
+using CP3.Data.Repositories;
 using CP3.Domain.Entities;
 using CP3.Domain.Interfaces;
 using CP3.Domain.Interfaces.Dtos;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace CP3.Tests
@@ -10,6 +13,8 @@ namespace CP3.Tests
     {
         private readonly Mock<IBarcoRepository> _repositoryMock;
         private readonly Mock<IBarcoApplicationService> _barcoServiceMock;
+        private readonly ApplicationContext _context;
+        private readonly BarcoRepository _repository;
         private readonly BarcoApplicationService _barcoService;
 
         public BarcoApplicationServiceTests()
@@ -17,6 +22,13 @@ namespace CP3.Tests
             _repositoryMock = new Mock<IBarcoRepository>();
             _barcoServiceMock = new Mock<IBarcoApplicationService>();
             _barcoService = new BarcoApplicationService(_repositoryMock.Object);
+
+            var options = new DbContextOptionsBuilder<ApplicationContext>()
+            .UseInMemoryDatabase(databaseName: "TesteDb")
+            .Options;
+
+            _context = new ApplicationContext(options);
+            _repository = new BarcoRepository(_context);
 
         }
 
@@ -172,6 +184,40 @@ namespace CP3.Tests
             Assert.Equal(barcoParaRemover.Ano, resultado.Ano);
             Assert.Equal(barcoParaRemover.Tamanho, resultado.Tamanho);
             _repositoryMock.Verify(r => r.Remover(barcoId), Times.Once);
+        }
+
+        [Fact]
+        public void ObterTodos_DeveRetornarListaDeBarcosQuandoExistemBarcosNoBanco()
+        {
+            // Arrange
+            var barco1 = new BarcoEntity
+            {
+                Nome = "Barco Teste 1",
+                Modelo = "Modelo A",
+                Ano = 2022,
+                Tamanho = 30.0
+            };
+
+            var barco2 = new BarcoEntity
+            {
+                Nome = "Barco Teste 2",
+                Modelo = "Modelo B",
+                Ano = 2023,
+                Tamanho = 35.0
+            };
+
+            _context.Barco.Add(barco1);
+            _context.Barco.Add(barco2);
+            _context.SaveChanges();
+
+            // Act
+            var resultado = _repository.ObterTodos();
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(2, resultado.Count());
+            Assert.Contains(resultado, b => b.Nome == barco1.Nome);
+            Assert.Contains(resultado, b => b.Nome == barco2.Nome);
         }
 
     }
