@@ -35,7 +35,7 @@ namespace CP3.Application.Services
 
         public BarcoEntity RemoverBarco(int id)
         {
-            throw new NotImplementedException();
+            return _repository.Remover(id);
         }
     }
 }
