@@ -53,7 +53,7 @@ namespace CP3.Tests
             Assert.Equal(barcoEsperado.Modelo, resultado.Modelo);
             Assert.Equal(barcoEsperado.Ano, resultado.Ano);
             Assert.Equal(barcoEsperado.Tamanho, resultado.Tamanho);
-            barcoDtoMock.Verify(b => b.Validate(), Times.Once); // Verifica se o método Validate foi chamado
+            barcoDtoMock.Verify(b => b.Validate(), Times.Once);
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace CP3.Tests
 
             // Assert
             Assert.NotNull(resultado);
-            Assert.Equal(2, resultado.Count()); // Verifica se o número de elementos é 2
+            Assert.Equal(2, resultado.Count());
             Assert.Contains(resultado, b => b.Nome == "Barco 1");
             Assert.Contains(resultado, b => b.Nome == "Barco 2");
             _repositoryMock.Verify(r => r.ObterTodos(), Times.Once);
