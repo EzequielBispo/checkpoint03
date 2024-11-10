@@ -220,5 +220,31 @@ namespace CP3.Tests
             Assert.Contains(resultado, b => b.Nome == barco2.Nome);
         }
 
+        [Fact]
+        public void Remover_DeveRemoverBarcoQuandoIdExistente()
+        {
+            // Arrange
+            var barcoExistente = new BarcoEntity
+            {
+                Nome = "Barco Teste",
+                Modelo = "Modelo X",
+                Ano = 2022,
+                Tamanho = 30.0
+            };
+
+            _context.Barco.Add(barcoExistente);
+            _context.SaveChanges();
+
+            // Act
+            var resultado = _repository.Remover(barcoExistente.Id);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(barcoExistente.Id, resultado.Id);
+
+            var barcoNoDb = _context.Barco.FirstOrDefault(b => b.Id == barcoExistente.Id);
+            Assert.Null(barcoNoDb);
+        }
+
     }
 }
