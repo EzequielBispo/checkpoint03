@@ -18,9 +18,9 @@ namespace CP3.Application.Services
             return _repository.Adicionar(entity);
         }
 
-        public BarcoEntity EditarBarco(int id, IBarcoDto entity)
+        public BarcoEntity EditarBarco(BarcoEntity entity)
         {
-            throw new NotImplementedException();
+            return _repository.Editar(entity);
         }
 
         public BarcoEntity ObterBarcoPorId(int id)
