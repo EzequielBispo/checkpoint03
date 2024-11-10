@@ -7,13 +7,13 @@ namespace CP3.Domain.Entities
     public class BarcoEntity
     {
         [Key]
-        int Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        string Nome { get; set; }
+        public string Nome { get; set; }
         [Required]
-        String Modelo { get; set; }
-        int Ano { get; set; }
-        double Tamanho { get; set; }
+        public String Modelo { get; set; }
+        public int Ano { get; set; }
+        public double Tamanho { get; set; }
 
 
 
