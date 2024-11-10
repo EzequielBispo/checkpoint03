@@ -122,5 +122,27 @@ namespace CP3.Tests
             _repositoryMock.Verify(r => r.ObterPorId(barcoId), Times.Once);
         }
 
+        [Fact]
+        public void ObterTodosBarcos_DeveRetornarListaDeBarcoEntities_QuandoExistemBarcos()
+        {
+            // Arrange
+            var listaDeBarcos = new List<BarcoEntity>
+            {
+                new BarcoEntity { Id = 1, Nome = "Barco 1", Modelo = "Modelo A", Ano = 2021, Tamanho = 25.5 },
+                new BarcoEntity { Id = 2, Nome = "Barco 2", Modelo = "Modelo B", Ano = 2020, Tamanho = 30.0 }
+            };
+
+            _repositoryMock.Setup(r => r.ObterTodos()).Returns(listaDeBarcos);
+
+            // Act
+            var resultado = _barcoService.ObterTodosBarcos();
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(2, resultado.Count()); // Verifica se o número de elementos é 2
+            Assert.Contains(resultado, b => b.Nome == "Barco 1");
+            Assert.Contains(resultado, b => b.Nome == "Barco 2");
+            _repositoryMock.Verify(r => r.ObterTodos(), Times.Once);
+        }
     }
 }
