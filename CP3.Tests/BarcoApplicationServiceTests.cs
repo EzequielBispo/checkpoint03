@@ -92,5 +92,35 @@ namespace CP3.Tests
             Assert.Equal(barcoEditado.Tamanho, resultado.Tamanho);
             _repositoryMock.Verify(r => r.Editar(barcoParaEditar), Times.Once);
         }
+
+        [Fact]
+        public void ObterBarcoPorId_DeveRetornarBarcoEntity_QuandoIdExistente()
+        {
+            // Arrange
+            int barcoId = 1;
+            var barcoEsperado = new BarcoEntity
+            {
+                Id = barcoId,
+                Nome = "Barco Exemplo",
+                Modelo = "Modelo Z",
+                Ano = 2020,
+                Tamanho = 27.5
+            };
+
+            _repositoryMock.Setup(r => r.ObterPorId(barcoId)).Returns(barcoEsperado);
+
+            // Act
+            var resultado = _barcoService.ObterBarcoPorId(barcoId);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(barcoEsperado.Id, resultado.Id);
+            Assert.Equal(barcoEsperado.Nome, resultado.Nome);
+            Assert.Equal(barcoEsperado.Modelo, resultado.Modelo);
+            Assert.Equal(barcoEsperado.Ano, resultado.Ano);
+            Assert.Equal(barcoEsperado.Tamanho, resultado.Tamanho);
+            _repositoryMock.Verify(r => r.ObterPorId(barcoId), Times.Once);
+        }
+
     }
 }
