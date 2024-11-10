@@ -25,7 +25,7 @@ namespace CP3.Application.Services
 
         public BarcoEntity ObterBarcoPorId(int id)
         {
-            throw new NotImplementedException();
+            return _repository.ObterPorId(id);
         }
 
         public IEnumerable<BarcoEntity> ObterTodosBarcos()
