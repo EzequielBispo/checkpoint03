@@ -29,7 +29,7 @@ namespace CP3.Data.Repositories
 
         public BarcoEntity? ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Barco.Find(id);
         }
 
         public IEnumerable<BarcoEntity>? ObterTodos()
