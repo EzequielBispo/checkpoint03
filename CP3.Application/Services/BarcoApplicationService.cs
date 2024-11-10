@@ -30,7 +30,7 @@ namespace CP3.Application.Services
 
         public IEnumerable<BarcoEntity> ObterTodosBarcos()
         {
-            throw new NotImplementedException();
+            return _repository.ObterTodos();
         }
 
         public BarcoEntity RemoverBarco(int id)
