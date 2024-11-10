@@ -144,5 +144,35 @@ namespace CP3.Tests
             Assert.Contains(resultado, b => b.Nome == "Barco 2");
             _repositoryMock.Verify(r => r.ObterTodos(), Times.Once);
         }
+
+        [Fact]
+        public void RemoverBarco_DeveRetornarBarcoEntity_QuandoRemoverComSucesso()
+        {
+            // Arrange
+            int barcoId = 1;
+            var barcoParaRemover = new BarcoEntity
+            {
+                Id = barcoId,
+                Nome = "Barco Removido",
+                Modelo = "Modelo X",
+                Ano = 2020,
+                Tamanho = 25.0
+            };
+
+            _repositoryMock.Setup(r => r.Remover(barcoId)).Returns(barcoParaRemover);
+
+            // Act
+            var resultado = _barcoService.RemoverBarco(barcoId);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(barcoParaRemover.Id, resultado.Id);
+            Assert.Equal(barcoParaRemover.Nome, resultado.Nome);
+            Assert.Equal(barcoParaRemover.Modelo, resultado.Modelo);
+            Assert.Equal(barcoParaRemover.Ano, resultado.Ano);
+            Assert.Equal(barcoParaRemover.Tamanho, resultado.Tamanho);
+            _repositoryMock.Verify(r => r.Remover(barcoId), Times.Once);
+        }
+
     }
 }
