@@ -39,7 +39,13 @@ namespace CP3.Data.Repositories
 
         public BarcoEntity? Remover(int id)
         {
-            throw new NotImplementedException();
+            var cliente = _context.Barco.Find(id);
+            if (cliente != null)
+            {
+                _context.Barco.Remove(cliente);
+                _context.SaveChanges();
+            }
+            return cliente;
         }
     }
 }
