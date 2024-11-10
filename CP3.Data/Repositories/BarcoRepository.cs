@@ -34,7 +34,7 @@ namespace CP3.Data.Repositories
 
         public IEnumerable<BarcoEntity>? ObterTodos()
         {
-            throw new NotImplementedException();
+            return _context.Barco.ToList();
         }
 
         public BarcoEntity? Remover(int id)
