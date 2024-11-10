@@ -55,5 +55,42 @@ namespace CP3.Tests
             Assert.Equal(barcoEsperado.Tamanho, resultado.Tamanho);
             barcoDtoMock.Verify(b => b.Validate(), Times.Once); // Verifica se o método Validate foi chamado
         }
+
+        [Fact]
+        public void EditarBarco_DeveRetornarBarcoEntity_QuandoEditarComSucesso()
+        {
+            // Arrange
+            var barcoParaEditar = new BarcoEntity
+            {
+                Id = 1,
+                Nome = "Barco Original",
+                Modelo = "Modelo X",
+                Ano = 2021,
+                Tamanho = 25.0
+            };
+
+            var barcoEditado = new BarcoEntity
+            {
+                Id = 1,
+                Nome = "Barco Editado",
+                Modelo = "Modelo Y",
+                Ano = 2022,
+                Tamanho = 30.5
+            };
+
+            _repositoryMock.Setup(r => r.Editar(It.IsAny<BarcoEntity>())).Returns(barcoEditado);
+
+            // Act
+            var resultado = _barcoService.EditarBarco(barcoParaEditar);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(barcoEditado.Id, resultado.Id);
+            Assert.Equal(barcoEditado.Nome, resultado.Nome);
+            Assert.Equal(barcoEditado.Modelo, resultado.Modelo);
+            Assert.Equal(barcoEditado.Ano, resultado.Ano);
+            Assert.Equal(barcoEditado.Tamanho, resultado.Tamanho);
+            _repositoryMock.Verify(r => r.Editar(barcoParaEditar), Times.Once);
+        }
     }
 }
